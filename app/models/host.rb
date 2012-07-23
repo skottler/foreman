@@ -16,7 +16,7 @@ class Host < Puppet::Rails::Host
   belongs_to :image
 
   has_many :lookup_values, :finder_sql => Proc.new { %Q{ SELECT * FROM lookup_values WHERE (lookup_values.match = 'fqdn=#{fqdn}') } }, :dependent => :destroy
-  accepts_nested_attributes_for :lookup_values,   :reject_if => lambda { |a| a[:value].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :lookup_values, :reject_if => lambda { |a| a[:value].blank? }, :allow_destroy => true
 
   ENC_FORMATS = [ :"puppet 0.23.0+", :"puppet 2.6.5+" ]
   class UnresolvedMandatoryParametersException < RuntimeError
@@ -365,7 +365,7 @@ class Host < Puppet::Rails::Host
     @cached_lookup_keys_params = lookup_keys_fetch false, &block
   end
 
-  # Resolves the puppetclass's parameters for the host
+  # Resolves the puppetclasses parameters for the host
   # The optional block will be called for each mandatory lookup key
   # that did not provide a value for the host
   def lookup_keys_class_params &block
@@ -689,7 +689,7 @@ class Host < Puppet::Rails::Host
       LookupKey.all(:conditions => {:puppetclass_id => klasses.flatten, :is_param => class_params } ).each do |k|
         param = class_params ? p[k.puppetclass.name] : p
         value = k.value_for(self, facts_cache)
-        if value == nil
+        if value.nil?
           yield k if block_given? and k.is_mandatory
         else
           param[k.to_s] = value

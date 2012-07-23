@@ -86,7 +86,7 @@ module ApplicationHelper
   end
 
   def link_to_edit_puppetclass_vars klass, host, type = "fqdn", options = {}
-    return if klass.lookup_keys.empty?
+    return if host.try(:id).nil? or klass.lookup_keys.empty?
     type = "fqdn" if type == "host"
     options = add_html_classes options, "ui-icon ui-icon-wrench"
     link_to_function('', 'smart_var_dialog(this)',

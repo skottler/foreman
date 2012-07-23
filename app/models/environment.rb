@@ -39,6 +39,7 @@ class Environment < ActiveRecord::Base
       disk_tree         = puppetEnvs SmartProxy.find(proxy_id)
       disk_tree.default = []
 
+      #TODO: add sql eager loading queries
       # Create a representation of the foreman configuration where the environments are hash keys and the classes are sorted lists
       db_tree           = HashWithIndifferentAccess[Environment.all.map { |e| [e.name, HashWithIndifferentAccess[e.puppetclasses.all.map {|pc| [pc.name, HashWithIndifferentAccess[pc.lookup_keys.all.map {|k| [k.key, k.default_value] if k.is_param}.compact]] }]] }]
       db_tree.default   = []
@@ -53,12 +54,12 @@ class Environment < ActiveRecord::Base
         changes["obsolete"][env] = surplus_db_classes if surplus_db_classes.size > 0
       end
       for env in disk_tree.keys
-        extra_disk_classes = disk_tree[env].dup.delete_if { |k,v| db_tree[env].is_a(Hash) && db_tree[env].has_key?(k) }
+        extra_disk_classes = disk_tree[env].dup.delete_if { |k,v| db_tree[env].is_a?(Hash) && db_tree[env].has_key?(k) }
         # Show the environment if there are new classes compared to the db
         # OR if the environment has no puppetclasses but does not exist in the db
         changes["new"][env] = extra_disk_classes if (extra_disk_classes.size > 0 or (disk_tree[env].size == 0 and Environment.find_by_name(env).nil?))
       end
-      for env_str in db_tree.keys & disk_tree.keys
+      (db_tree.keys & disk_tree.keys).each do |env_str|
         env = Environment.find_by_name(env_str)
         db_params = db_tree[env_str] # read the already fetched parameters
         updated_classes = HashWithIndifferentAccess[
@@ -104,6 +105,7 @@ class Environment < ActiveRecord::Base
     #               changed[:/new|obsolete/] is and Array of Strings
     # Returns   : Array of Strings containing all record errors
     def obsolete_and_new changed
+      #TODO: rewrite this whole thing :)
       changed        ||= { }
       @import_errors = []
 
@@ -121,6 +123,7 @@ class Environment < ActiveRecord::Base
             pc = Puppetclass.find_or_create_by_name :name => pclass
             if pc.errors.empty?
               env.puppetclasses << pc
+              #TODO: what happens if the key already exists?
               parameters.each do |param_str, value|
                 key = LookupKey.create :key => param_str, :puppetclass_id => pc.id, :is_param => true, :is_mandatory => value.nil?, :default_value => value, :validator_type => LookupKey.suggest_validator_type(value)
                 if key.errors.empty?

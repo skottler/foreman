@@ -42,8 +42,9 @@ class PuppetclassesController < ApplicationController
 
   # form AJAX methods
   def parameters
+    not found unless params[:puppetclass_id] and params[:host_id]
     puppetclass = Puppetclass.find(params[:puppetclass_id])
-    host = Host.find_by_id(params[:host_id])
+    host        = Host.find(params[:host_id])
     render :partial => "puppetclasses/class_parameters", :locals => {:klass => puppetclass, :host => host, :host_facts => host.facts_hash}
   end
 

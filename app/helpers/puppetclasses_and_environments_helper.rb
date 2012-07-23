@@ -2,6 +2,7 @@ module PuppetclassesAndEnvironmentsHelper
   def class_update_text pcs, env
     if pcs.empty?
       "Empty environment"
+      #TODO: not sure what this is doing
     elsif pcs.has_key? "_destroy_"
     elsif pcs.delete "_destroy_"
       if pcs.empty?

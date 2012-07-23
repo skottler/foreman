@@ -1,7 +1,7 @@
 <% title "Smart variables" %>
 
 <% if params["puppetclass_id"]
-     title_actions  display_link_if_authorized("New smart variable", hash_for_new_puppetclass_lookup_key_path)
+     title_actions  display_link_if_authorized("New smart variable", hash_for_new_puppetclass_lookup_key_path(:puppetclass_id => params["puppetclass_id"]))
    else
      title_actions  display_link_if_authorized("New smart variable", hash_for_new_lookup_key_path)
    end %>
