@@ -287,6 +287,12 @@ Foreman::Application.routes.draw do
       get 'select', :on => :member
       collection do
         get  'auto_complete_search'
+        post 'hypervisor_selected'
+        post 'architecture_selected'
+        post 'os_selected'
+        post 'domain_selected'
+        post 'computer_resource_selected'
+        post 'medium_selected'
       end
     end
   end
