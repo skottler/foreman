@@ -22,6 +22,7 @@ class Organization < ActiveRecord::Base
   has_many :environments, :through => :organization_environments
   has_many :organization_puppetclasses, :dependent => :destroy
   has_many :puppetclasses, :through => :organization_puppetclasses
+  has_many :architectures, :as => :host
 
   scoped_search :on => :name, :complete_value => true
 

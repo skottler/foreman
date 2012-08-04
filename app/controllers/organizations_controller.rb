@@ -12,6 +12,7 @@ class OrganizationsController < ApplicationController
 
   def new
     @organization = Organization.new
+    @smart_proxy = SmartProxy.new
   end
 
   def show

@@ -3,15 +3,7 @@
 
   <ul class="nav nav-tabs" data-tabs="tabs">
     <li class="active"><a href="#primary" data-toggle="tab">Organization</a></li>
-    <li><a href="#smart_proxies" data-toggle="tab">Smart Proxies</a></li>
-    <li><a href="#compute_resources" data-toggle="tab">Compute Resources</a></li>
-    <li><a href="#media" data-toggle="tab">Installation Media</a></li>
-    <% if SETTINGS[:unattended] %>
-      <li><a href="#network" data-toggle="tab">Network</a></li>
-      <li><a href="#os" data-toggle="tab">Operating System</a></li>
-    <% end %>
-    <li><a href="#domains" data-toggle="tab">Domains</a></li>
-    <li><a href="#params" data-toggle="tab">Parameters</a></li>
+    <li><a href="#os" data-toggle="tab">Operating System</a></li>
   </ul>
 
   <div class="tab-content">
@@ -20,7 +12,6 @@
     </div>
 
     <div class="tab-pane" id="smart_proxies">
-
     </div>
 
     <div class="tab-pane" id="compute_resources">
@@ -31,12 +22,11 @@
 
    <% if SETTINGS[:unattended] %>
    <div class="tab-pane" id="network">
-     <% render "common/domain_subnet", :item => @hostgroup %>
    </div>
 
    <div class="tab-pane" id="os">
-     <% render "common/os_selection/initial", :item => @organization %>
-     <% password_f f, :root_pass, :label => "Root Password" %>
+     <%= render "common/os_selection/initial", :item => @organization %>
+     <%= password_f f, :root_pass, :label => "Root Password" %>
    </div>
 
    <% end %>
@@ -46,7 +36,6 @@
    </div>
 
    <div class="tab-pane" id="params">
-     <% render "common_parameters/parameters", { :f => f, :type => :organization_parameters }%>
    </div>
   </div>
 
