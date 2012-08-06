@@ -4,6 +4,7 @@
   <ul class="nav nav-tabs" data-tabs="tabs">
     <li class="active"><a href="#primary" data-toggle="tab">Organization</a></li>
     <li><a href="#os" data-toggle="tab">Operating System</a></li>
+    <li><a href="#parameters" data-toggle="tab">Parameters</a></li>
   </ul>
 
   <div class="tab-content">
@@ -35,7 +36,8 @@
 
    </div>
 
-   <div class="tab-pane" id="params">
+   <div class="tab-pane" id="parameters">
+     <%= render "common_parameters/parameters", { :f => f, :type => :organization_parameters } %>
    </div>
   </div>
 

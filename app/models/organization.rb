@@ -23,6 +23,9 @@ class Organization < ActiveRecord::Base
   has_many :organization_puppetclasses, :dependent => :destroy
   has_many :puppetclasses, :through => :organization_puppetclasses
 
+  has_many :organization_parameters, :dependent => :destroy, :foreign_key => :reference_id
+  accepts_nested_attributes_for :organization_parameters, :reject_if => lambda { |a| a[:value].blank? }, :allow_destroy => true
+
   scoped_search :on => :name, :complete_value => true
 
   def to_param
