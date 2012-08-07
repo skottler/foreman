@@ -12,7 +12,7 @@ class SmartProxiesController < ApplicationController
 
   def create
     @proxy = SmartProxy.new(params[:smart_proxy])
-    Orgnaization.when_single_org do
+    Organization.when_single_org do
       @proxy.organization_ids = [Organization.current.id]
     end
     if @proxy.save
