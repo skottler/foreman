@@ -22,6 +22,11 @@ module HostsAndHostgroupsHelper
     hg.sort{ |l, r| l.to_label <=> r.to_label }
   end
 
+  def accessible_organizations
+    hg = ( User.current.organizations.any? and !User.current.admin?) ? User.current.organizations : Organization.all
+    hg.sort { |l, r| l.to_label <=> r.to_label }
+  end
+
   def parent_classes obj
     return obj.hostgroup.classes if obj.is_a?(Host) and obj.hostgroup
     return obj.is_root? ? [] : obj.parent.classes if obj.is_a?(Hostgroup)
