@@ -22,6 +22,8 @@ class Organization < ActiveRecord::Base
   has_many :environments, :through => :organization_environments
   has_many :organization_puppetclasses, :dependent => :destroy
   has_many :puppetclasses, :through => :organization_puppetclasses
+  has_one :organization_subnets, :dependent => :destroy
+  has_one :subnet, :through => :organization_subnets
 
   has_many :organization_parameters, :dependent => :destroy, :foreign_key => :reference_id
   accepts_nested_attributes_for :organization_parameters, :reject_if => lambda { |a| a[:value].blank? }, :allow_destroy => true
