@@ -14,8 +14,8 @@ class Host < Puppet::Rails::Host
   belongs_to :sp_subnet, :class_name => "Subnet"
   belongs_to :compute_resource
   belongs_to :image
-  has_many :organization_hosts, :dependent => :destroy
-  has_many :organizations, :through => :organization_hosts
+  belongs_to :organization, :dependent => :destroy, :foreign_key => :reference_id
+
 
   include Hostext::Search
   include HostCommon
@@ -315,6 +315,8 @@ class Host < Puppet::Rails::Host
     hp = {}
     # read common parameters
     CommonParameter.all.each {|p| hp.update Hash[p.name => p.value] }
+    # organization parameters
+    organization.organization_parameters.each { |p| hp.update Hash[p.name => p.value] } unless organization.nil?
     # read domain parameters
     domain.domain_parameters.each {|p| hp.update Hash[p.name => p.value] } unless domain.nil?
     # read OS parameters

@@ -25,6 +25,7 @@
 
     <div class="tab-pane active" id="primary">
       <%= text_f f, :name, :class => "input-xlarge", :value => name_field(@host) %>
+      <%= select_f f, :organization_id, Organization.all, :id, :to_label, { :label => "Organization" } %>
       <% libvirt = Hypervisor.first.nil? ? [] : [OpenStruct.new(:to_label => 'Libvirt')] -%>
       <%= select_f f, :compute_resource_id, libvirt + ComputeResource.my_compute_resources, :id, :to_label,
         { :include_blank => 'Bare Metal' },
