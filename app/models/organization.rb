@@ -29,6 +29,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :organization_parameters, :reject_if => lambda { |a| a[:value].blank? }, :allow_destroy => true
 
   scoped_search :on => :name, :complete_value => true
+  scoped_search :in => :host_parameters, :on => :value, :on_key => :name, :complete_value => true, :only_explicit => true, :rename => :params
 
   def to_param
     name

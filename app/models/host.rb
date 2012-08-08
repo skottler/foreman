@@ -316,7 +316,7 @@ class Host < Puppet::Rails::Host
     # read common parameters
     CommonParameter.all.each {|p| hp.update Hash[p.name => p.value] }
     # organization parameters
-    organization.organization_parameters.each { |p| hp.update Hash[p.name => p.value] } unless organization.nil?
+    # Organization.organization_parameters.each { |p| hp.update Hash[p.name => p.value] }
     # read domain parameters
     domain.domain_parameters.each {|p| hp.update Hash[p.name => p.value] } unless domain.nil?
     # read OS parameters

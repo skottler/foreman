@@ -12,6 +12,7 @@ class OrganizationsController < ApplicationController
 
   def new
     @organization = Organization.new
+    @organization.organization_parameters.build
   end
 
   def show
