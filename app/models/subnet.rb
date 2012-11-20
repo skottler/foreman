@@ -3,13 +3,12 @@ class Subnet < ActiveRecord::Base
   include Authorization
   include Taxonomix
   has_many :hosts
-  # sps = Service processors / ilom boards etc
-  has_many :sps, :class_name => "Host", :foreign_key => 'sp_subnet_id'
   belongs_to :dhcp, :class_name => "SmartProxy"
   belongs_to :tftp, :class_name => "SmartProxy"
   belongs_to :dns,  :class_name => "SmartProxy"
   has_many :subnet_domains, :dependent => :destroy
   has_many :domains, :through => :subnet_domains
+  has_many :interfaces
   validates_presence_of   :network, :mask, :name
   validates_associated    :subnet_domains
   validates_uniqueness_of :network
@@ -19,13 +18,7 @@ class Subnet < ActiveRecord::Base
 
   validate :validate_ranges
 
-  default_scope lambda {
-    with_taxonomy_scope do
-      order('vlanid')
-    end
-  }
-
-  before_destroy EnsureNotUsedBy.new(:hosts, :sps)
+  before_destroy EnsureNotUsedBy.new(:hosts, :interfaces )
 
   scoped_search :on => [:name, :network, :mask, :gateway, :dns_primary, :dns_secondary, :vlanid], :complete_value => true
   scoped_search :in => :domains, :on => :name, :rename => :domain, :complete_value => true

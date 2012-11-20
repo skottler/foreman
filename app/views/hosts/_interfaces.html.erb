@@ -1,0 +1,24 @@
+<div class="fields">
+  <hr>
+
+  <%= selectable_f f, :role, Interface::TYPES %>
+  <%= text_f f, :name, :help_inline => "DNS name" %>
+  <%= text_f f, :ip, :label => "IP"  %>
+  <%= text_f f, :mac, :label => "MAC" %>
+  <%= select_f f, :domain_id, accessible_domains, :id, :to_label,
+               { :include_blank => accessible_domains.any? ? true : "No domains"},
+               { :disabled => accessible_domains.empty? ? true : false } %>
+  <%= select_f f, :subnet_id, domain_subnets, :id, :title,
+               { :include_blank => domain_subnets.any? ? true : "No subnets"},
+               { :disabled => domain_subnets.empty? ? true : false,
+                 :help_inline   => remove_child_link("X", f, { :title => 'remove network interface', :class => 'label label-important' })
+               } %>
+  <%# TODO: make this via AJAX %>
+  <% if f.object.role == "BMC" %>
+    <%= text_f f, :username  %>
+    <%= password_f f, :password %>
+    <%= selectable_f f, :provider, BMC::PROVIDERS %>
+  <% end %>
+
+</div>
+
