@@ -2,7 +2,7 @@
 %global confdir extras/sources
 
 Name:   foreman
-Version: 1.2.7
+Version: 1.2.8
 Release: 1%{dist}
 Summary:Systems Management web application
 
@@ -484,6 +484,9 @@ if [ $1 -ge 1 ] ; then
 fi
 
 %changelog
+* Mon Mar 25 2013 Sam Kottler <shk@redhat.com> 1.2.8-1
+- Removed source (shk@redhat.com)
+
 * Mon Mar 25 2013 Sam Kottler <shk@redhat.com> 1.2.7-1
 - Removed version from setup (shk@redhat.com)
 
