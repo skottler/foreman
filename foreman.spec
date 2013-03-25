@@ -10,6 +10,7 @@ Group:  Applications/System
 License:GPLv3+
 URL: http://theforeman.org
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0: name-%{version}.tar.gz
 
 BuildArch:  noarch
 
