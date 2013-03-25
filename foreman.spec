@@ -1,5 +1,5 @@
 %global homedir %{_datadir}/%{name}
-%global confdir extras/spec
+%global confdir deploy/common
 
 Name:   foreman
 Version: 1.2.0
