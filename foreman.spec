@@ -9,7 +9,6 @@ Summary:Systems Management web application
 Group:  Applications/System
 License:GPLv3+
 URL: http://theforeman.org
-Source0: https://github.com/theforeman/foreman/archive/%{version}.tar.gz
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:  noarch
