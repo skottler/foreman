@@ -2,7 +2,7 @@
 %global confdir extras/sources
 
 Name:   foreman
-Version: 1.2.3
+Version: 1.2.4
 Release: 1%{dist}
 Summary:Systems Management web application
 
@@ -490,6 +490,9 @@ if [ $1 -ge 1 ] ; then
 fi
 
 %changelog
+* Mon Mar 25 2013 Sam Kottler <shk@redhat.com> 1.2.4-1
+- Fixed source installation (shk@redhat.com)
+
 * Mon Mar 25 2013 Sam Kottler <shk@redhat.com> 1.2.3-1
 - Fixed up source handling (shk@redhat.com)
 
