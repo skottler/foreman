@@ -10,11 +10,6 @@ Group:  Applications/System
 License:GPLv3+
 URL: http://theforeman.org
 Source0: https://github.com/theforeman/foreman/archive/%{version}.tar.gz
-Source1: foreman.repo
-Source2: foreman.init
-Source3: foreman.sysconfig
-Source4: foreman.logrotate
-Source5: foreman.cron.d
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:  noarch
@@ -361,13 +356,13 @@ install -d -m0755 %{buildroot}%{_localstatedir}/lib/%{name}
 install -d -m0755 %{buildroot}%{_localstatedir}/run/%{name}
 install -d -m0750 %{buildroot}%{_localstatedir}/log/%{name}
 
-install -Dp -m0644 %{confdir}%{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-install -Dp -m0755 %{confdir}%{SOURCE2} %{buildroot}%{_initrddir}/%{name}
-install -Dp -m0644 %{confdir}%{SOURCE4} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-install -Dp -m0644 %{confdir}%{SOURCE5} %{buildroot}%{_sysconfdir}/cron.d/%{name}
+install -Dp -m0644 %{confdir}/%{name}.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -Dp -m0755 %{confdir}/%{name}.init %{buildroot}%{_initrddir}/%{name}
+install -Dp -m0644 %{confdir}/%{name}.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+install -Dp -m0644 %{confdir}/%{name}.cron.d %{buildroot}%{_sysconfdir}/cron.d/%{name}
 
 install -dm 755 $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
-install -pm 644 %{confdir}%{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
+install -pm 644 %{confdir}/%{name}.repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 
 cp -p -r app bundler.d config config.ru extras Gemfile lib locale Rakefile script %{buildroot}%{_datadir}/%{name}
 #chmod a+x %{buildroot}%{_datadir}/%{name}/script/{console,dbconsole,runner}
