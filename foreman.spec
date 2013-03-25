@@ -2,7 +2,7 @@
 %global confdir deploy/common
 
 Name:   foreman
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{dist}
 Summary:Systems Management web application
 
@@ -490,6 +490,10 @@ if [ $1 -ge 1 ] ; then
 fi
 
 %changelog
+* Mon Mar 25 2013 Sam Kottler <shk@redhat.com> 1.2.1-1
+- Added tito stuff (shk@redhat.com)
+- Initialized to use tito. (shk@redhat.com)
+
 * Mon Mar 25 2013 Sam Kottler <shk@redhat.com> 1.2.0-1
 - new package built with tito
 
