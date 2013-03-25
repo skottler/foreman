@@ -1,4 +1,5 @@
 %global homedir %{_datadir}/%{name}
+%global confdir extras/sources
 
 Name:   foreman
 Version: 1.2.2
