@@ -339,7 +339,7 @@ Foreman is based on Ruby on Rails, and this package bundles Rails and all
 plugins required for Foreman to work.
 
 %prep
-%setup -q -n %{version}
+%setup -q -n %{name}-%{version}
 # Remove the references to git data in the Gemfile. This regex removes
 # everything after the first comma, potentially including version
 # information if it's specified.
