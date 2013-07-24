@@ -12,6 +12,12 @@ begin
   require 'fog/aws/models/compute/server'
   Fog::Compute::AWS::Server.send(:include, FogExtensions::AWS::Server)
 
+  require 'fog/digitalocean'
+  require 'fog/digitalocean/models/compute/flavor'
+  Fog::Compute::DigitalOcean::Flavor.send(:include, FogExtensions::DigitalOcean::Flavor)
+  require 'fog/digitalocean/models/compute/server'
+  Fog::Compute::DigitalOcean::Server.send(:include, FogExtensions::DigitalOcean::Server)
+
   require 'fog/libvirt'
   require 'fog/libvirt/models/compute/server'
   Fog::Compute::Libvirt::Server.send(:include, FogExtensions::Libvirt::Server)
