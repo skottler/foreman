@@ -4,11 +4,7 @@ module Foreman::Model
     validates_presence_of :user, :password, :region
 
     def provided_attributes
-      super.merge({ :ip => :public_ip_address })
-    end
-
-    def self.model_name
-      ComputeResource.model_name
+      super.merge({ :username => :username })
     end
 
     def capabilities
@@ -34,7 +30,7 @@ module Foreman::Model
     end
 
     def regions
-      ['New York 1', 'Amsterdam 1', 'San Francisco 1']
+      ['New York 1', 'New York 2', 'Amsterdam 1', 'San Francisco 1']
     end
 
     def flavors

@@ -86,7 +86,7 @@ class ComputeResource < ActiveRecord::Base
 
   def provider_friendly_name
     list = SETTINGS[:libvirt] ? ["Libvirt"] : []
-    list += %w[ oVirt EC2 VMWare OpenStack Rackspace ]
+    list += %w[ oVirt EC2 VMWare OpenStack Rackspace DigitalOcean ]
     list[PROVIDERS.index(provider)] rescue ""
   end
 

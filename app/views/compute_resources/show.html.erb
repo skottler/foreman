@@ -23,15 +23,19 @@
         <td><%= @compute_resource.provider %></td>
       </tr>
 
+      <% unless @compute_resource.description.empty? -%>
       <tr>
         <td><%= _("Description") %></td>
         <td><%= @compute_resource.description %></td>
       </tr>
+      <% end -%>
 
+      <% if @compute_resource.url -%>
       <tr>
         <td><%= _("URL") %></td>
         <td><%= @compute_resource.url %></td>
       </tr>
+      <% end -%>
     </table>
   </div>
   <div id="vms" class="tab-pane" data-url=<%= compute_resource_vms_path(@compute_resource) %>>
