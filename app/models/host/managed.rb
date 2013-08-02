@@ -221,11 +221,9 @@ class Host::Managed < Host::Base
   # Called after a host is given their provisioning template
   # Returns : Boolean status of the operation
   def handle_ca
-    return true if Rails.env == "test"
     return true unless Setting[:manage_puppetca]
-    if puppetca?
-      respond_to?(:initialize_puppetca,true) && initialize_puppetca && delCertificate && setAutosign
-    end
+    return true unless puppetca?
+    respond_to?(:initialize_puppetca,true) && initialize_puppetca && delCertificate && setAutosign
   end
 
   # returns the host correct disk layout, custom or common
@@ -692,9 +690,9 @@ class Host::Managed < Host::Base
   def power
     opts = {:host => self}
     if compute_resource_id && uuid
-      VirtPowerManager.new(opts)
+      PowerManager::Virt.new(opts)
     elsif bmc_available?
-      BMCPowerManager.new(opts)
+      PowerManager::BMC.new(opts)
     else
       raise ::Foreman::Exception.new(N_("Unknown power management support - can't continue"))
     end
