@@ -331,6 +331,18 @@ class HostTest < ActiveSupport::TestCase
     assert_equal 'my5name.mydomain.net', Host.my_hosts.first.name
   end
 
+  test "sti types altered in memory with becomes are still contained in my_hosts scope" do
+    class Host::Valid < Host::Base ; belongs_to :domain ; end
+    h = Host::Valid.new :name => "mytestvalidhost.foo.com"
+    setup_user_and_host
+    as_admin do
+      @one.domains = [domains(:yourdomain)] # ensure it matches the user filters
+      h.update_attribute :domain,  domains(:yourdomain)
+    end
+    h_new = h.becomes(Host::Managed) # change the type to break normal AR `==` method
+    assert Host::Base.my_hosts.include?(h_new)
+  end
+
   test "host can be edited when user fact filter permits" do
     setup_filtered_user
     as_admin do
@@ -763,6 +775,22 @@ class HostTest < ActiveSupport::TestCase
         assert h.update_attributes(:lookup_values_attributes => {"0" => {:lookup_key_id => lookup_keys(:one).id, :value => "8080" }})
       end
     end
+  end
+
+  test "can search hosts by params" do
+    parameter = parameters(:host)
+    hosts = Host.search_for("params.host1 = host1")
+    assert_equal hosts.count, 1
+    assert_equal hosts.first.params['host1'], 'host1'
+  end
+
+  test "can search hosts by inherited params from a hostgroup" do
+    host = hosts(:one)
+    host.update_attribute(:hostgroup, hostgroups(:inherited))
+    GroupParameter.create( { :name => 'foo', :value => 'bar', :hostgroup => host.hostgroup.parent } )
+    hosts = Host.search_for("params.foo = bar")
+    assert_equal hosts.count, 1
+    assert_equal hosts.first.params['foo'], 'bar'
   end
 
 end

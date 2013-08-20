@@ -2,6 +2,7 @@ module Foreman::Model
   class Rackspace < ComputeResource
 
     validates_presence_of :user, :password, :region
+    validate :ensure_valid_region
 
     def provided_attributes
       super.merge({ :ip => :public_ip_address })
@@ -35,17 +36,6 @@ module Foreman::Model
 
     def regions
       ['ORD', 'DFW', 'LON']
-    end
-
-    def endpoint
-      case region
-        when 'DFW'
-          'https://dfw.servers.api.rackspacecloud.com/v2'
-        when 'LON'
-          'https://lon.servers.api.rackspacecloud.com/v2'
-        else
-          'https://ord.servers.api.rackspacecloud.com/v2'
-      end
     end
 
     def zones
@@ -91,10 +81,23 @@ module Foreman::Model
       "Rackspace"
     end
 
+    def ensure_valid_region
+      unless regions.include?(region.upcase)
+        errors.add(:region, 'is not valid')
+      end
+    end
+
     private
 
     def client
-      @client = Fog::Compute.new(:provider => "Rackspace", :version => 'v2', :rackspace_api_key => password, :rackspace_username => user, :rackspace_auth_url => url, :rackspace_endpoint => endpoint)
+      @client = Fog::Compute.new(
+        :provider => "Rackspace",
+        :version => 'v2',
+        :rackspace_api_key => password,
+        :rackspace_username => user,
+        :rackspace_auth_url => url,
+        :rackspace_region => region.downcase.to_sym
+      )
       return @client
     end
 
