@@ -69,6 +69,11 @@ Foreman::Application.routes.draw do
         post 'update_multiple_organization'
         get  'select_multiple_location'
         post 'update_multiple_location'
+
+        resource :mcollective, :controller => :mcollective, :except => [:new, :edit, :show, :create, :update, :destroy, :index] do
+          get  :install_packages, :on => :collection
+          post :submit_install_packages, :on => :collection
+        end
       end
 
       constraints(:host_id => /[^\/]+/) do

@@ -1,0 +1,6 @@
+<%= form_for :package, :url => submit_install_packages_mcollective_path() do |f| %>
+  <%= f.text_field :name %>
+  <span class="label label-warning"><%= _('Warning') %></span>
+  <%= _('This might take a while, as install runs on all servers') %>
+  <%= submit_or_cancel f, false, :cancel_path => hosts_path() %>
+<% end %>
