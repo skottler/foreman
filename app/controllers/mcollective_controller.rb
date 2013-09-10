@@ -36,7 +36,7 @@ class McollectiveController < ApplicationController
   def submit_start_services
   response = ProxyAPI::MCollective.new({ :url => @mc_proxy.url}).start_service(@service_name)
   if response[0]["statuscode"] == 0
-    process_success :success_redirect => hosts_path(), :success_msg => _("sucessfully started service %s") % @service_name
+    process_success :success_redirect => hosts_path(), :success_msg => _("successfully started service %s") % @service_name
   else
     process_error :redirect => hosts_path(), :error_msg => _("failed to start service: '%s': %s") % [@service_name, response[0]["statusmsg"]]
   end
@@ -47,7 +47,7 @@ class McollectiveController < ApplicationController
   def submit_stop_services
   response = ProxyAPI::MCollective.new({ :url => @mc_proxy.url}).stop_service(@service_name)
   if response[0]["statuscode"] == 0
-    process_success :success_redirect => hosts_path(), :success_msg => _("sucessfully stoped service %s") % @service_name
+    process_success :success_redirect => hosts_path(), :success_msg => _("successfully stoped service %s") % @service_name
   else
     process_error :redirect => hosts_path(), :error_msg => _("failed to stop service: '%s': %s") % [@service_name, response[0]["statusmsg"]]
   end
@@ -58,7 +58,7 @@ class McollectiveController < ApplicationController
   def submit_restart_services
   response = ProxyAPI::MCollective.new({ :url => @mc_proxy.url}).restart_service(@service_name)
   if response[0]["statuscode"] == 0
-    process_success :success_redirect => hosts_path(), :success_msg => _("sucessfully restarted service %s") % @service_name
+    process_success :success_redirect => hosts_path(), :success_msg => _("successfully restarted service %s") % @service_name
   else
     process_error :redirect => hosts_path(), :error_msg => _("failed to restart service: '%s': %s") % [@service_name, response[0]["statusmsg"]]
   end
