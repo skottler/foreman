@@ -74,6 +74,8 @@ Foreman::Application.routes.draw do
           # Packages
           get  :install_packages, :on => :collection
           post :submit_install_packages, :on => :collection
+          get  :uninstall_packages, :on => :collection
+          post :submit_uninstall_packages, :on => :collection
 
           # Services
           get  :start_services, :on => :collection
