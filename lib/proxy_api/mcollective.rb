@@ -1,5 +1,5 @@
 module ProxyAPI
-  class Mcollective < ProxyAPI::Resource
+  class MCollective < ProxyAPI::Resource
     def initialize args
       @url  = args[:url] + "/mcollective"
       super args
@@ -15,6 +15,10 @@ module ProxyAPI
 
     def start_service(name, args = {})
       parse(post(args, "services/#{name}"))
+    end
+
+    def restart_service(name, args = {})
+      parse(post(args, "services/#{name}/restart"))
     end
 
     def stop_service(name, args = {})

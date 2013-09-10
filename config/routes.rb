@@ -79,6 +79,7 @@ Foreman::Application.routes.draw do
 
           # Services
           get  :start_services, :on => :collection
+          get  :submit_start_services, :on => :collection
           post :submit_start_services, :on => :collection
         end
       end

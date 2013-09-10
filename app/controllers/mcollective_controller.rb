@@ -22,7 +22,7 @@ class McollectiveController < ApplicationController
   end
 
   def submit_uninstall_packages
-    response = ProxyAPI::Mcollective.new({:url => @mc_proxy.url}).delete_package(@package_name)
+    response = ProxyAPI::MCollective.new({:url => @mc_proxy.url}).delete_package(@package_name)
 
     if response[0]["statuscode"] == 0
       process_success :success_redirect => hosts_path(), :success_msg => _("successfully uninstalled package %s") % @package_name
@@ -31,6 +31,39 @@ class McollectiveController < ApplicationController
     end
   rescue => e
     process_error :redirect => hosts_path(), :error_msg => _("failed to uninstall a package: %s") % e
+  end
+
+  def submit_start_services
+  response = ProxyAPI::MCollective.new({ :url => @mc_proxy.url}).start_service(@service_name)
+  if response[0]["statuscode"] == 0
+    process_success :success_redirect => hosts_path(), :success_msg => _("sucessfully started service %s") % @service_name
+  else
+    process_error :redirect => hosts_path(), :error_msg => _("failed to start service: '%s': %s") % [@service_name, response[0]["statusmsg"]]
+  end
+  rescue => e
+    process_error :redirect => hosts_path(), :error_msg => _("failed to start services: %s") % e
+  end
+
+  def submit_stop_services
+  response = ProxyAPI::MCollective.new({ :url => @mc_proxy.url}).stop_service(@service_name)
+  if response[0]["statuscode"] == 0
+    process_success :success_redirect => hosts_path(), :success_msg => _("sucessfully stoped service %s") % @service_name
+  else
+    process_error :redirect => hosts_path(), :error_msg => _("failed to stop service: '%s': %s") % [@service_name, response[0]["statusmsg"]]
+  end
+  rescue => e
+    process_error :redirect => hosts_path(), :error_msg => _("failed to stop services: %s") % e
+  end
+
+  def submit_restart_services
+  response = ProxyAPI::MCollective.new({ :url => @mc_proxy.url}).restart_service(@service_name)
+  if response[0]["statuscode"] == 0
+    process_success :success_redirect => hosts_path(), :success_msg => _("sucessfully restarted service %s") % @service_name
+  else
+    process_error :redirect => hosts_path(), :error_msg => _("failed to restart service: '%s': %s") % [@service_name, response[0]["statusmsg"]]
+  end
+  rescue => e
+    process_error :redirect => hosts_path(), :error_msg => _("failed to restart services: %s") % e
   end
 
   def find_smart_proxy
