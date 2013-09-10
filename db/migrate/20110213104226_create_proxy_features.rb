@@ -13,6 +13,7 @@ class CreateProxyFeatures < ActiveRecord::Migration
     Feature.create(:name => "DHCP")
     Feature.create(:name => "Puppet CA")
     Feature.create(:name => "Puppet")
+    Feature.create(:name => "MCollective")
 
     create_table :features_smart_proxies, :id => false do |t|
       t.references :smart_proxy

@@ -3,7 +3,7 @@ class McollectiveController < ApplicationController
   end
 
   def submit_install_packages
-    #mc_proxy = SmartProxy.joins(:features).where("features.name" => "MCOLLECTIVE").first
+    mc_proxy = SmartProxy.joins(:features).where("features.name" => "MCollective").first
     if true #mc_proxy
       ProxyAPI::Mcollective.new({:url => "http://localhost"}).install_package(params[:package][:name])
     else

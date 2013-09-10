@@ -38,12 +38,13 @@ class SmartProxy < ActiveRecord::Base
 
   def self.name_map
     {
-      "tftp"     => Feature.find_by_name("TFTP"),
-      "bmc"      => Feature.find_by_name("BMC"),
-      "dns"      => Feature.find_by_name("DNS"),
-      "dhcp"     => Feature.find_by_name("DHCP"),
-      "puppetca" => Feature.find_by_name("Puppet CA"),
-      "puppet"   => Feature.find_by_name("Puppet")
+      "tftp"        => Feature.find_by_name("TFTP"),
+      "bmc"         => Feature.find_by_name("BMC"),
+      "dns"         => Feature.find_by_name("DNS"),
+      "dhcp"        => Feature.find_by_name("DHCP"),
+      "puppetca"    => Feature.find_by_name("Puppet CA"),
+      "puppet"      => Feature.find_by_name("Puppet"),
+      "mcollective" => Feature.find_by_name("MCollective")
     }
   end
 

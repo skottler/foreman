@@ -88,7 +88,7 @@ module HostsHelper
     actions <<  [_('Run Puppet'), multiple_puppetrun_hosts_path, 'play'] if Setting[:puppetrun]
     actions <<  [_('Assign Organization'), select_multiple_organization_hosts_path, 'tags'] if SETTINGS[:organizations_enabled]
     actions <<  [_('Assign Location'), select_multiple_location_hosts_path, 'map-marker'] if SETTINGS[:locations_enabled]
-    actions <<  [_('Install Packages'), select_install_packages_mcollective_path, 'pencil'] # if SmartProxy.joins(:features).where("features.name" => "MCOLLECTIVE").count > 0
+    actions <<  [_('Install Packages'), select_install_packages_mcollective_path, 'pencil'] if SmartProxy.joins(:features).where("features.name" => "MCollective").count > 0
     actions <<  [_('Manage Services'), select_start_services_mcollective_path, 'pencil']
 
     content_tag :span, :id => 'submit_multiple' do
