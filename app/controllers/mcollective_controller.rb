@@ -10,9 +10,9 @@ class McollectiveController < ApplicationController
 
     # TODO handle partial successes/failures
     if response[0]["statuscode"] == 0
-      process_success :success_redirect => hosts_path(), :success_msg => _("successfully installed package %s" % @package_name)
+      process_success :success_redirect => hosts_path(), :success_msg => _("successfully installed package %s") % @package_name
     else
-      process_error :redirect => hosts_path(), :error_msg => _("failed to install package '%s': %s") % @package_name, response[0]["statusmsg"]
+      process_error :redirect => hosts_path(), :error_msg => _("failed to install package '%s': %s") % [@package_name, response[0]["statusmsg"]]
     end
   rescue => e
     process_error :redirect => hosts_path(), :error_msg => _("failed to install a package: %s") % e
@@ -25,9 +25,9 @@ class McollectiveController < ApplicationController
     response = ProxyAPI::Mcollective.new({:url => mc_proxy.url}).uninstall_package(@package_name)
 
     if response[0]["statuscode"] == 0
-      process_success :success_redirect => hosts_path(), :success_msg => _("successfully uninstalled package %s" % @package_name)
+      process_success :success_redirect => hosts_path(), :success_msg => _("successfully uninstalled package %s") % @package_name
     else
-      process_error :redirect => hosts_path(), :error_msg => _("failed to uninstall package '%s': %s") % @package_name, response[0]["statusmsg"]
+      process_error :redirect => hosts_path(), :error_msg => _("failed to uninstall package '%s': %s") % [@package_name, response[0]["statusmsg"]]
     end
   rescue => e
     process_error :redirect => hosts_path(), :error_msg => _("failed to uninstall a package: %s") % e
