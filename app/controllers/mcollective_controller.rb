@@ -6,7 +6,7 @@ class McollectiveController < ApplicationController
   end
 
   def submit_install_packages
-    response = ProxyAPI::Mcollective.new({:url => mc_proxy.url}).install_package(@package_name)
+    response = ProxyAPI::Mcollective.new({:url => @mc_proxy.url}).install_package(@package_name)
 
     # TODO handle partial successes/failures
     if response[0]["statuscode"] == 0
@@ -22,7 +22,7 @@ class McollectiveController < ApplicationController
   end
 
   def submit_uninstall_packages
-    response = ProxyAPI::Mcollective.new({:url => mc_proxy.url}).uninstall_package(@package_name)
+    response = ProxyAPI::Mcollective.new({:url => @mc_proxy.url}).uninstall_package(@package_name)
 
     if response[0]["statuscode"] == 0
       process_success :success_redirect => hosts_path(), :success_msg => _("successfully uninstalled package %s") % @package_name
