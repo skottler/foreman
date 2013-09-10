@@ -1,0 +1,6 @@
+<%= form_for :service, :url => submit_start_services_mcollective_path() do |f| %>
+  <%= f.text_field :name %>
+  <span class="label label-warning"><%= _('Warning') %></span>
+  <%= _('This might take a while, as service management actions will run on all servers') %>
+  <%= submit_or_cancel f, false, :cancel_path => hosts_path() %>
+<% end %>

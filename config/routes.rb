@@ -71,8 +71,13 @@ Foreman::Application.routes.draw do
         post 'update_multiple_location'
 
         resource :mcollective, :controller => :mcollective, :except => [:new, :edit, :show, :create, :update, :destroy, :index] do
+          # Packages
           get  :install_packages, :on => :collection
           post :submit_install_packages, :on => :collection
+
+          # Services
+          get  :start_services, :on => :collection
+          post :submit_start_services, :on => :collection
         end
       end
 

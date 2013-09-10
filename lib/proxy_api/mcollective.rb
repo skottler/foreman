@@ -12,5 +12,13 @@ module ProxyAPI
     def delete_package(name, args = {})
       parse(delete("packages/#{name}"))
     end
+
+    def start_service(name, args = {})
+      parse(post(args, "services/#{name}"))
+    end
+
+    def stop_service(name, args = {})
+      parse(delete("services/#{name}"))
+    end
   end
 end

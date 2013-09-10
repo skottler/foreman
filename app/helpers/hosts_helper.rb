@@ -89,6 +89,7 @@ module HostsHelper
     actions <<  [_('Assign Organization'), select_multiple_organization_hosts_path, 'tags'] if SETTINGS[:organizations_enabled]
     actions <<  [_('Assign Location'), select_multiple_location_hosts_path, 'map-marker'] if SETTINGS[:locations_enabled]
     actions <<  [_('Install Packages'), select_install_packages_mcollective_path, 'pencil'] # if SmartProxy.joins(:features).where("features.name" => "MCOLLECTIVE").count > 0
+    actions <<  [_('Manage Services'), select_start_services_mcollective_path, 'pencil']
 
     content_tag :span, :id => 'submit_multiple' do
       select_action_button( _("Select Action"), actions.map do |action|
