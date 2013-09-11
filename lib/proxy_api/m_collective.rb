@@ -22,7 +22,7 @@ module ProxyAPI
     end
 
     def stop_service(name, args = {})
-      parse(post("services/#{name}/stop"))
+      parse(post(args, "services/#{name}/stop"))
     end
   end
 end
