@@ -89,6 +89,7 @@ module HostsHelper
     actions <<  [_('Assign Organization'), select_multiple_organization_hosts_path, 'tags'] if SETTINGS[:organizations_enabled]
     actions <<  [_('Assign Location'), select_multiple_location_hosts_path, 'map-marker'] if SETTINGS[:locations_enabled]
     actions <<  [_('Install Packages'), install_packages_mcollective_path, 'pencil'] if SmartProxy.joins(:features).where("features.name" => "MCollective").count > 0
+    actions <<  [_('Uninstall Packages'), uninstall_packages_mcollective_path, 'pencil'] if SmartProxy.joins(:features).where("features.name" => "MCollective").count > 0
     actions <<  [_('Manage Services'),  start_services_mcollective_path, 'pencil'] if SmartProxy.joins(:features).where("features.name" => "MCollective").count > 0
 
     content_tag :span, :id => 'submit_multiple' do
