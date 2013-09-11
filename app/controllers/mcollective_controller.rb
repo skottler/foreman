@@ -1,7 +1,7 @@
 class McollectiveController < ApplicationController
   before_filter :find_smart_proxy, :only => [:submit_install_packages, :submit_uninstall_packages, :submit_restart_services, :submit_start_services, :submit_stop_services]
   before_filter :package_name, :only => [:submit_install_packages, :submit_uninstall_packages]
-  before_filter :service_name, :only => [:submit_start_services, :submit_restart_services, :submit_restart_services]
+  before_filter :service_name, :only => [:submit_start_services, :submit_stop_services, :submit_restart_services]
 
   def install_packages
   end
