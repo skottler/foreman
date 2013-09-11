@@ -91,6 +91,7 @@ module HostsHelper
     actions <<  [_('Install Packages'), install_packages_mcollective_path, 'pencil'] if SmartProxy.joins(:features).where("features.name" => "MCollective").count > 0
     actions <<  [_('Uninstall Packages'), uninstall_packages_mcollective_path, 'pencil'] if SmartProxy.joins(:features).where("features.name" => "MCollective").count > 0
     actions <<  [_('Start Services'),  start_services_mcollective_path, 'pencil'] if SmartProxy.joins(:features).where("features.name" => "MCollective").count > 0
+    actions <<  [_('Stop Services'),  stop_services_mcollective_path, 'pencil'] if SmartProxy.joins(:features).where("features.name" => "MCollective").count > 0
 
     content_tag :span, :id => 'submit_multiple' do
       select_action_button( _("Select Action"), actions.map do |action|
