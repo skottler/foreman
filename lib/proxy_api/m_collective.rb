@@ -14,7 +14,7 @@ module ProxyAPI
     end
 
     def start_service(name, args = {})
-      parse(post(args, "services/#{name}"))
+      parse(post(args, "services/#{name}/start"))
     end
 
     def restart_service(name, args = {})
@@ -22,7 +22,7 @@ module ProxyAPI
     end
 
     def stop_service(name, args = {})
-      parse(delete("services/#{name}"))
+      parse(post("services/#{name}/stop"))
     end
   end
 end
