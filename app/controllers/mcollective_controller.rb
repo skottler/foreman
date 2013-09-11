@@ -7,7 +7,7 @@ class McollectiveController < ApplicationController
   end
 
   def submit_install_packages
-    response = ProxyAPI::Mcollective.new({:url => @mc_proxy.url}).install_package(@package_name)
+    response = ProxyAPI::MCollective.new({:url => @mc_proxy.url}).install_package(@package_name)
 
     # TODO handle partial successes/failures
     if response[0]["statuscode"] == 0
